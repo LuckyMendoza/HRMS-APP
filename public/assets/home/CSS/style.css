@@ -7,7 +7,7 @@
 
     :root {
         --primary: #6a5cf5;
-        --primary-600: #5a49f0;
+        
         --primary-300: #8c83fb;
         --accent: #19c6ff;
         --text: #3f3f46;
@@ -19,7 +19,7 @@
     body {
         font-family: Arial, sans-serif;
         color: var(--text);
-        background: linear-gradient(90deg, hsla(280, 84%, 41%, 1) 0%, hsla(218, 97%, 56%, 1) 100%);
+        background: linear-gradient(90deg, hsla(225, 78%, 59%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);
         min-height: 100vh;
         padding: 40px 0 64px;
     }
@@ -100,27 +100,53 @@
     .login-btn {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 8px 14px;
+        gap: 10px;
+        padding: 8px 18px;
         border-radius: 999px;
         color: var(--primary);
         text-decoration: none;
-        border: 1.5px solid rgba(106,92,245,0.35);
-        transition: background .2s ease, color .2s ease, border-color .2s ease;
+        background: rgba(245, 250, 255, 0.85); /* very pale surface */
+        border: 1px solid rgba(106,92,245,0.18);
+        box-shadow: 0 6px 18px rgba(28,64,128,0.04);
+        transition: background .18s ease, color .18s ease, border-color .18s ease, transform .12s ease;
+        font-weight: 700;
+        align-self: center;
     }
 
     .login-dot {
-        width: 8px;
-        height: 8px;
+        width: 12px;
+        height: 12px;
         border-radius: 50%;
-        background: var(--primary);
-        box-shadow: 0 0 0 2px rgba(106,92,245,0.25);
+        display: inline-block;
+        position: relative;
+        /* subtle two-tone center */
+        background: radial-gradient(circle at 35% 30%, rgba(59,114,255,1) 0%, var(--primary) 60%);
+        box-shadow: 0 6px 14px rgba(106,92,245,0.08), 0 0 0 4px rgba(106,92,245,0.06);
+    }
+
+    .login-dot::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.35); /* tiny highlight */
     }
 
     .login-btn:hover {
-        background: var(--primary);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-300) 100%);
         color: #ffffff;
-        border-color: var(--primary);
+        border-color: rgba(106,92,245,0.9);
+        transform: translateY(-1px);
+    }
+
+    .login-btn:hover .login-dot {
+        /* make the dot stand out on hover */
+        background: radial-gradient(circle at 35% 30%, #bcd1ff 0%, #ffffff00 50%), #ffffff;
+        box-shadow: 0 6px 18px rgba(106,92,245,0.18), 0 0 0 4px rgba(255,255,255,0.06) inset;
     }
 
     /* Hero */
@@ -171,14 +197,14 @@
     .hero-copy h1 {
         font-size: 48px;
         line-height: 1.1;
-        color: var(--primary-600);
+        color: #4e80c6;
         letter-spacing: 0.5px;
         margin-bottom: 14px;
     }
     .hero-copy h1 .strong {
         display: block;
         font-size: 56px;
-        color: var(--primary);
+        color: #4e80c6;
     }
 
     .hero-copy p {

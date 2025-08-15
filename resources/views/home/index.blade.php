@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HRMS-APP</title>
+    <link rel="stylesheet" href="{{ asset('assets/home/CSS/style.css') }}">
 </head>
-<link rel="stylesheet" href="{{ asset('assets/home/CSS/style.css') }}">
 <body>
 
 
@@ -14,13 +14,12 @@
         <header>
             <div class="container">
                 <a class="brand" href="#" aria-label="Brand">
-                    <span class="brand-icon">●</span>
-                    LOGO
+                    <img src="{{ asset('assets/home/img/tesda_logo.png') }}" alt="tesda_logo" style="width: 50px; height: 50px;">
                 </a>
                 <nav class="nav">
                     <a class="active" href="#">Home</a>
                     <a href="#">About us</a>
-                    <a href="#">Work</a>
+                    <a href="#">How it works?</a>
                     <a href="#">Info</a>
                     <a href="#">Contact</a>
                 </nav>
@@ -37,7 +36,7 @@
                         <span class="strong"> System</span>
                     </h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <a href="#" class="cta">Learn More</a>
+                    <a href="#" class="cta">Get Started</a>
                 </div>
                 <div class="hero-figure" aria-hidden="true">
                     <img src="{{ asset('assets/home/img/hrm.png') }}" alt="HR" style="width: 400px; height: 400px;">
@@ -58,5 +57,5 @@
     </div>
 </body>
 </html>
-
+ 
 
