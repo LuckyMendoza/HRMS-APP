@@ -23,7 +23,7 @@
                     <a href="#">Info</a>
                     <a href="#">Contact</a>
                 </nav>
-                <a href="#" class="login-btn"><span class="login-dot"></span> Login</a>
+                <a href="{{route('login')}}" class="login-btn" data-open-modal="modal-login"><span class="login-dot"></span> Login</a>
             </div>
         </header>
 
@@ -55,7 +55,7 @@
             </svg>
         </section>
     </div>
+    <!-- Include auth modals script -->
+    <script src="{{ asset('assets/js/auth-modals.js') }}"></script>
 </body>
 </html>
- 
-
