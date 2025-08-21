@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HRMS-APP</title>
+    <!-- MDB CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/home/CSS/style.css') }}">
 </head>
 <body>
@@ -23,7 +25,10 @@
                     <a href="#">Info</a>
                     <a href="#">Contact</a>
                 </nav>
-                <a href="{{route('login')}}" class="login-btn" data-open-modal="modal-login"><span class="login-dot"></span> Login</a>
+                <!-- Updated button with MDB attributes -->
+                <button type="button" class="login-btn" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#modal-login">
+                    <span class="login-dot"></span> Login
+                </button>
             </div>
         </header>
 
@@ -55,7 +60,13 @@
             </svg>
         </section>
     </div>
-    <!-- Include auth modals script -->
-    <script src="{{ asset('assets/js/auth-modals.js') }}"></script>
+
+    <!-- Include auth modals -->
+    @include('auth.login')
+    @include('auth.register')
+    @include('auth.forgot-password')
+
+    <!-- MDB JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"></script>
 </body>
 </html>

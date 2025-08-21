@@ -1,23 +1,33 @@
 <!-- resources/views/auth/forgot-password.blade.php -->
-<div id="modal-forgot" class="auth-modal" role="dialog" aria-modal="true" aria-hidden="true" style="display:none;">
-    <div class="auth-modal-backdrop" data-close-modal></div>
-    <div class="auth-modal-panel" role="document" aria-labelledby="forgot-title">
-        <button type="button" class="auth-modal-close" aria-label="Close" data-close-modal>&times;</button>
-        <h2 id="forgot-title">Forgot Password</h2>
-
-        <form method="POST" action="{{ route('password.email') }}" novalidate>
-            @csrf
-            <p>Enter your email and we'll send a password reset link.</p>
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required />
-                @error('email') <div class="input-error">{{ $message }}</div> @enderror
+<!-- Forgot Password Modal -->
+<div class="modal fade" id="modal-forgot" tabindex="-1" aria-labelledby="forgotModalLabel" aria-hidden="true">
+    <div class="modal-dialog d-flex justify-content-center">
+        <div class="modal-content w-75">
+            <div class="modal-header">
+                <h5 class="modal-title" id="forgotModalLabel">Reset Password</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body p-4">
+                <form method="POST" action="{{ route('password.email') }}">
+                    @csrf
+                    <p class="text-muted mb-4">Enter your email and we'll send you instructions to reset your password.</p>
 
-            <div class="actions">
-                <button type="submit" class="btn-primary">Send reset link</button>
-                <button type="button" class="btn-link" data-open-modal="modal-login">Back to login</button>
+                    <!-- Email input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required />
+                        <label class="form-label" for="email">Email address</label>
+                        @error('email') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Send Reset Link</button>
+
+                    <!-- Back to login -->
+                    <div class="text-center">
+                        <p>Remember your password? <a href="#" data-mdb-modal-init data-mdb-target="#modal-login">Back to login</a></p>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>

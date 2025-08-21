@@ -32,6 +32,10 @@ Route::middleware('guest')->group(function () {
 	});
 });
 
+// OTP Verification Routes
+Route::get('/verify-otp', [LoginRegisterController::class, 'showOtpForm'])->name('verify.otp');
+Route::post('/verify-otp', [LoginRegisterController::class, 'verifyOtp']);
+
 // Routes that require authentication
 Route::middleware('auth')->group(function () {
 	Route::post('/logout', [LoginRegisterController::class, 'logout'])->name('logout');

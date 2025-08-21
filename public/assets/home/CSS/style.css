@@ -1,5 +1,4 @@
-
-    * {
+* {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -100,53 +99,69 @@
     .login-btn {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        padding: 8px 18px;
+        gap: 12px;
+        padding: 10px 24px;
         border-radius: 999px;
-        color: var(--primary);
+        color: #fff;
         text-decoration: none;
-        background: rgba(245, 250, 255, 0.85); /* very pale surface */
-        border: 1px solid rgba(106,92,245,0.18);
-        box-shadow: 0 6px 18px rgba(28,64,128,0.04);
-        transition: background .18s ease, color .18s ease, border-color .18s ease, transform .12s ease;
-        font-weight: 700;
-        align-self: center;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        border: none;
+        box-shadow: 0 4px 15px rgba(106, 92, 245, 0.2);
+        transition: all 0.3s ease;
+        font-weight: 600;
+        font-size: 15px;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .login-btn span {
+        position: relative;
+        z-index: 2;
+    }
+
+    .login-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 1;
     }
 
     .login-dot {
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
-        display: inline-block;
+        background: #fff;
         position: relative;
-        /* subtle two-tone center */
-        background: radial-gradient(circle at 35% 30%, rgba(59,114,255,1) 0%, var(--primary) 60%);
-        box-shadow: 0 6px 14px rgba(106,92,245,0.08), 0 0 0 4px rgba(106,92,245,0.06);
-    }
-
-    .login-dot::after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.35); /* tiny highlight */
+        z-index: 2;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        transition: all 0.3s ease;
     }
 
     .login-btn:hover {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-300) 100%);
-        color: #ffffff;
-        border-color: rgba(106,92,245,0.9);
-        transform: translateY(-1px);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(106, 92, 245, 0.3);
+    }
+
+    .login-btn:hover::before {
+        opacity: 1;
     }
 
     .login-btn:hover .login-dot {
-        /* make the dot stand out on hover */
-        background: radial-gradient(circle at 35% 30%, #bcd1ff 0%, #ffffff00 50%), #ffffff;
-        box-shadow: 0 6px 18px rgba(106,92,245,0.18), 0 0 0 4px rgba(255,255,255,0.06) inset;
+        transform: scale(1.2);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+    }
+
+    .login-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 10px rgba(106, 92, 245, 0.2);
     }
 
     /* Hero */
@@ -235,6 +250,175 @@
     .cta:hover {
         transform: translateY(-1px);
         box-shadow: 0 12px 28px rgba(106,92,245,0.35);
+    }
+
+    /* Auth Modal Styles */
+    .auth-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .auth-modal-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .auth-modal-panel {
+        position: relative;
+        width: 90%;
+        max-width: 400px;
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
+
+    .auth-modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+    }
+
+    .auth-modal h2 {
+        margin: 0 0 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .input-group {
+        margin-bottom: 1rem;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .input-error {
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .input-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+    }
+
+    .btn-primary {
+        background: var(--primary);
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-link {
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Enhanced Modal Animations */
+    .modal.fade .modal-dialog {
+        transition: transform 0.3s ease-out, opacity 0.3s ease;
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    .modal.show .modal-dialog {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    .modal-backdrop {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .modal-backdrop.show {
+        opacity: 0.5;
+    }
+
+    .modal-content {
+        transform-origin: top;
+        animation: modalContent 0.3s ease-out;
+    }
+
+    @keyframes modalContent {
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* Ripple effect for modal buttons */
+    .modal .btn {
+        position: relative;
+        overflow: hidden;
+        transform: translate3d(0, 0, 0);
+    }
+
+    /* Form field animations */
+    .modal .form-outline .form-control:focus ~ .form-label,
+    .modal .form-outline .form-control.active ~ .form-label {
+        transform: translateY(-1rem) translateY(0.1rem) scale(0.8);
+        transition: all 0.3s ease-out;
+    }
+
+    /* Close button animation */
+    .modal .btn-close {
+        transition: transform 0.2s;
+    }
+
+    .modal .btn-close:hover {
+        transform: rotate(90deg);
     }
 
     /* Responsive */

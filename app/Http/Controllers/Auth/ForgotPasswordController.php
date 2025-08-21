@@ -11,19 +11,29 @@ class ForgotPasswordController extends Controller
     // Show the email request form (kept for completeness; modal may be used instead)
     public function showLinkRequestForm()
     {
-        return view('auth.forgot-password');
+        try {
+            return view('auth.forgot-password');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'An error occurred while loading the form.']);
+        }
     }
 
     public function sendResetLinkEmail(Request $request)
     {
-        $request->validate(['email' => 'required|email']);
+        try {
+            $validated = $request->validate([
+                'email' => 'required|email|exists:users,email'
+            ]);
 
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
 
-        return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => __($status)])
-                    : back()->withErrors(['email' => __($status)]);
+            return $status === Password::RESET_LINK_SENT
+                ? back()->with(['status' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'An error occurred while sending the password reset link.']);
+        }
     }
 }

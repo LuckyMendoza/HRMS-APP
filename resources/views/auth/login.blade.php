@@ -1,39 +1,54 @@
 <!-- resources/views/auth/login.blade.php -->
-<div id="modal-login" class="auth-modal" role="dialog" aria-modal="true" aria-hidden="true" style="display:none;">
-    <div class="auth-modal-backdrop" data-close-modal></div>
-    <div class="auth-modal-panel" role="document" aria-labelledby="login-title">
-        <button type="button" class="auth-modal-close" aria-label="Close" data-close-modal>&times;</button>
-        <h2 id="login-title">Login</h2>
-
-        <form method="POST" action="{{ route('login') }}"  >
-          
-            @csrf
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus />
-                @error('email') <div class="input-error">{{ $message }}</div> @enderror
+<!-- Login Modal -->
+<div class="modal fade" id="modal-login" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog d-flex justify-content-center">
+        <div class="modal-content w-75">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Sign in</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body p-4">
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <!-- Email input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required />
+                        <label class="form-label" for="email">Email address</label>
+                        @error('email') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+                    </div>
 
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input id="password" type="password" name="password" required />
-                @error('password') <div class="input-error">{{ $message }}</div> @enderror
-            </div>
+                    <!-- Password input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="password" id="password" name="password" class="form-control" required />
+                        <label class="form-label" for="password">Password</label>
+                        @error('password') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+                    </div>
 
-            <div class="input-row">
-                <label class="checkbox">
-                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} /> Remember me
-                </label>
-                <a href="#" data-open-modal="modal-forgot">Forgot password?</a>
-            </div>
+                    <!-- Remember me checkbox -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 d-flex justify-content-start">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="remember">Remember me</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <a href="#" data-mdb-modal-init data-mdb-target="#modal-forgot">Forgot password?</a>
+                        </div>
+                    </div>
 
-            <div class="actions">
-                <button type="submit" class="btn-primary">Login</button>
-                <button type="button" class="btn-link" data-open-modal="modal-register">Register</button>
+                    <!-- Submit button -->
+                    <button type="submit" data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Sign in</button>
+
+                    <!-- Register buttons -->
+                    <div class="text-center">
+                        <p>Not a member? <a href="#" data-mdb-modal-init data-mdb-target="#modal-register">Register</a></p>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
 
- 
+

@@ -1,41 +1,46 @@
-// Modal initialization and handlers
-if (!window.__authModalsInitialized) {
-    window.__authModalsInitialized = true;
-
-    function openModal(id) {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.style.display = 'block';
-        el.setAttribute('aria-hidden', 'false');
-    }
-
-    function closeModal(el) {
-        if (!el) return;
-        el.style.display = 'none';
-        el.setAttribute('aria-hidden', 'true');
-    }
-
-    // close on ESC
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-            document.querySelectorAll('.auth-modal').forEach(m => closeModal(m));
-        }
-    });
-
-    document.addEventListener('click', function (e) {
-        const open = e.target.closest('[data-open-modal]');
-        if (open) {
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all elements that can open modals
+    const modalOpeners = document.querySelectorAll('[data-open-modal]');
+    // Get all elements that can close modals
+    const modalClosers = document.querySelectorAll('[data-close-modal]');
+    
+    // Handle opening modals
+    modalOpeners.forEach(opener => {
+        opener.addEventListener('click', (e) => {
             e.preventDefault();
-            const id = open.getAttribute('data-open-modal');
-            openModal(id);
-            return;
-        }
-
-        const close = e.target.closest('[data-close-modal]');
-        if (close) {
-            const modal = close.closest('.auth-modal');
-            closeModal(modal);
-            return;
-        }
+            const modalId = opener.getAttribute('data-open-modal');
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                // Hide all other modals first
+                document.querySelectorAll('.auth-modal').forEach(m => {
+                    m.style.display = 'none';
+                });
+                // Show the target modal
+                modal.style.display = 'flex';
+            }
+        });
     });
-}
+
+    // Handle closing modals
+    modalClosers.forEach(closer => {
+        closer.addEventListener('click', (e) => {
+            e.preventDefault();
+            const modal = closer.closest('.auth-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+    // Close modal when clicking outside
+    document.querySelectorAll('.auth-modal-backdrop').forEach(backdrop => {
+        backdrop.addEventListener('click', (e) => {
+            if (e.target === backdrop) {
+                const modal = backdrop.closest('.auth-modal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+    });
+});
