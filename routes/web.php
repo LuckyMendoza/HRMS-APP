@@ -16,7 +16,7 @@ Route::view('/', 'home.index');
 Route::middleware('guest')->group(function () {
 	// Login / Register via LoginRegisterController
 	Route::controller(LoginRegisterController::class)->group(function () {
-		Route::get('/login', 'login')->name('login');
+		Route::post('/login', 'login')->name('login');
 		Route::post('/register', 'register')->name('register');
 	});
 
