@@ -78,7 +78,7 @@ class LoginRegisterController extends Controller
     public function showOtpForm()
     {
         if (!session()->has('registration_data')) {
-            return redirect()->route('register');
+            return redirect('/');
         }
         return view('auth.verify-otp');
     }
