@@ -36,44 +36,47 @@ class LoginRegisterController extends Controller
     }
 
     public function register(Request $request)
-    {
-        try {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email:rfc,dns|max:250|unique:users,email',
-                'password' => 'required|string|confirmed|min:6',
-            ]);
+{
+    // Remove the try-catch for validation - let Laravel handle it naturally
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email:rfc,dns|max:250|unique:users,email',
+        'password' => 'required|string|confirmed|min:6',
+    ]);
 
-            // Generate OTP
-            $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
-            
-            // Store OTP in database
-            EmailVerification::updateOrCreate(
-                ['email' => $validated['email']],
-                [
-                    'otp' => Hash::make($otp),
-                    'expires_at' => Carbon::now()->addMinutes(10)
-                ]
-            );
+    try {
+        // Generate OTP
+        $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        
+        // Store OTP in database
+        EmailVerification::updateOrCreate(
+            ['email' => $validated['email']],
+            [
+                'otp' => Hash::make($otp),
+                'expires_at' => Carbon::now()->addMinutes(10)
+            ]
+        );
 
-            // Send OTP email
-            Mail::send('emails.otp-verification', ['otp' => $otp], function($message) use ($validated) {
-                $message->to($validated['email'])
-                        ->subject('Email Verification Code');
-            });
+        // Send OTP email
+        Mail::send('emails.otp-verification', ['otp' => $otp], function($message) use ($validated) {
+            $message->to($validated['email'])
+                    ->subject('Email Verification Code');
+        });
 
-            // Store registration data in session
-            $request->session()->put('registration_data', [
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'password' => $validated['password']
-            ]);
+        // Store registration data in session
+        $request->session()->put('registration_data', [
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => $validated['password']
+        ]);
 
-            return redirect()->route('verify.otp')->with('success', 'Please check your email for the verification code.');
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'An error occurred during registration. Please try again.']);
-        }
+        return redirect()->route('verify.otp')->with('success', 'Please check your email for the verification code.');
+    } catch (\Exception $e) {
+        return back()->withErrors(['error' => 'An error occurred during registration. Please try again.'])
+                    ->with('show_register_modal', true)
+                    ->withInput(); // This preserves the old input values
     }
+}
 
     public function showOtpForm()
     {
@@ -120,6 +123,7 @@ class LoginRegisterController extends Controller
 
             return redirect('/')->with('success', 'Registration successful!');
         } catch (\Exception $e) {
+         
             return back()->withErrors(['error' => 'An error occurred during verification. Please try again.']);
         }
     }

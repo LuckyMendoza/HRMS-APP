@@ -7,6 +7,7 @@
     <!-- MDB CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/home/CSS/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
 
@@ -66,7 +67,23 @@
     @include('auth.register')
     @include('auth.forgot-password')
 
+
+
+<!-- show error modal if validation fails -->
+<script>
+    @if (session('show_register_modal') || $errors->any())
+        document.addEventListener('DOMContentLoaded', function() {
+            var registerModal = new mdb.Modal(document.getElementById('modal-register'));
+            registerModal.show();
+        });
+    @endif
+</script>
+
+
+
     <!-- MDB JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"></script>
+    <script src="assets/home/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+   
 </body>
 </html>
